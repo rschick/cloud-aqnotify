@@ -42,8 +42,10 @@ export async function update(code) {
 
   if (!existing || existing.aqhi !== current.aqhi) {
     await data.set(`region_${code}`, current);
-    const email = "russ@bellwoods.ca";
 
-    await sendAqhiNotification(email, current);
+    if (current.aqhi >= 3) {
+      const email = "russ@bellwoods.ca";
+      await sendAqhiNotification(email, current);
+    }
   }
 }

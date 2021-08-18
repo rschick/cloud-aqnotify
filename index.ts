@@ -9,6 +9,6 @@ api.get("/current", async (req, res) => {
   res.json(data);
 });
 
-schedule.every("30 minutes", async () => {
+schedule.every("1 hour", async () => {
   await update(code);
 });
