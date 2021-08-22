@@ -19,7 +19,7 @@ export class GiphyGif extends LitElement {
   height = 0;
 
   static styles = css`
-    img {
+    img.full {
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -47,6 +47,8 @@ export class GiphyGif extends LitElement {
   }
 
   render() {
-    return this.src ? html`<img src=${this.src} alt=${this.alt}></img>` : null;
+    return this.src
+      ? html`<img class="full" src=${this.src} alt=${this.alt}></img><img src="/assets/PoweredBy_200px-White_HorizText.png" alt="Powered by GIPHY"></img>`
+      : null;
   }
 }
