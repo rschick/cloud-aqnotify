@@ -1,19 +1,23 @@
 {
-  "name": "starter-service",
+  "name": "cloud-aqnotify",
   "version": "1.0.0",
   "description": "Default Serverless Cloud service",
   "main": "index.ts",
+  "type": "module",
   "serverless": {
     "org": "rschick",
-    "service": "cloud-aqnotify"
+    "app": "cloud-aqnotify"
   },
   "dependencies": {
+    "@serverless/cloud": "^2.5.10",
     "aws-sdk": "^2.968.0",
+    "delay": "^5.0.0",
     "lit": "^2.0.0-rc.2",
     "node-fetch": "^2.6.1",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.1"
+    "@types/jest": "^27.0.1",
+    "prettier": "^2.4.1"
   }
 }

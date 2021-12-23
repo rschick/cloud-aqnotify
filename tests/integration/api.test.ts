@@ -1,7 +1,13 @@
-// @ts-ignore
 import { api } from "@serverless/cloud";
 
 test("returns current data", async () => {
-  const result = await api.get("/current").invoke();
-  console.log(result);
+  const { body } = await api.get("/current").invoke();
+  expect(body).toEqual(
+    expect.objectContaining({
+      nameEn: "Squamish",
+      nameFr: "Squamish",
+      aqhi: expect.any(String),
+      code: expect.any(String),
+    })
+  );
 });

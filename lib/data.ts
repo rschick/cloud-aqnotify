@@ -1,5 +1,4 @@
-// @ts-ignore
-import { data } from "@serverless/cloud";
+import { data, params } from "@serverless/cloud";
 import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 import { sendAqhiNotification } from "./notify";
@@ -37,15 +36,16 @@ export async function getCurrent(code) {
 }
 
 export async function update(code) {
-  const existing = await data.get(`region_${code}`);
+  const existing = (await data.get(`region_${code}`)) as any;
   const current = await getAirQualityData(code);
+
+  console.log("got data:", { code, existing, current });
 
   if (!existing || existing.aqhi !== current.aqhi) {
     await data.set(`region_${code}`, current);
 
-    if (current.aqhi >= 3) {
-      const email = "russ@bellwoods.ca";
-      await sendAqhiNotification(email, current);
+    if (current.aqhi >= 3 && params.NOTIFICATION_EMAIL) {
+      await sendAqhiNotification(params.NOTIFICATION_EMAIL, current);
     }
   }
 }

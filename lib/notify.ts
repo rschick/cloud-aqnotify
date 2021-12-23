@@ -1,9 +1,8 @@
-// @ts-ignore
 import { params } from "@serverless/cloud";
 import SES from "aws-sdk/clients/ses";
 
 export async function sendAqhiNotification(email, data) {
-  console.log("Sending notification");
+  console.log(`Sending notification to ${email}`);
 
   const ses = new SES({
     accessKeyId: params.AWS_ACCESS_KEY_ID,
