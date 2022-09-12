@@ -3,7 +3,14 @@ import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 import { sendAqhiNotification } from "./notify";
 
-async function getAirQualityData(code) {
+type AqData = {
+  aqhi: number;
+  code: string;
+  nameEn: string;
+  nameFr: string;
+};
+
+async function getAirQualityData(code): Promise<AqData> {
   const response = await fetch(
     `http://dd.weather.gc.ca/air_quality/aqhi/pyr/observation/realtime/xml/AQ_OBS_${code}_CURRENT.xml`,
     {}
@@ -23,20 +30,22 @@ async function getAirQualityData(code) {
       code: result.conditionAirQuality.region[0]._,
       nameEn: result.conditionAirQuality.region[0].$.nameEn,
       nameFr: result.conditionAirQuality.region[0].$.nameFr,
-      aqhi: result.conditionAirQuality.airQualityHealthIndex[0],
+      aqhi: Number.parseFloat(
+        result.conditionAirQuality.airQualityHealthIndex[0]
+      ),
     };
   } catch (error) {
     throw new Error(`Failed to parse AQHI data: ${error.message}`);
   }
 }
 
-export async function getCurrent(code) {
-  const result = await data.get(`region_${code}`);
+export async function getCurrent(code): Promise<AqData | undefined> {
+  const result = await data.get<AqData>(`region_${code}`);
   return result;
 }
 
 export async function update(code) {
-  const existing = (await data.get(`region_${code}`)) as any;
+  const existing = await getCurrent(code);
   const current = await getAirQualityData(code);
 
   console.log("got data:", { code, existing, current });

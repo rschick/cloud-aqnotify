@@ -1,21 +1,21 @@
-import { LitElement, html, css } from 'lit-element';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, html, css } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 
 @customElement('random-gif')
 export class GiphyGif extends LitElement {
   @property({ type: String })
   tag = '';
 
-  @property({ type: String })
+  @state()
   src = '';
 
-  @property({ type: String })
+  @state()
   alt = '';
 
-  @property({ type: Number })
+  @state()
   width = 0;
 
-  @property({ type: Number })
+  @state()
   height = 0;
 
   static styles = css`
@@ -26,9 +26,17 @@ export class GiphyGif extends LitElement {
     }
   `;
 
-  async connectedCallback() {
+  async attributeChangedCallback(
+    name: string,
+    _old: string | null,
+    value: string | null
+  ) {
     // eslint-disable-next-line wc/guard-super-call
-    super.connectedCallback();
+    super.attributeChangedCallback(name, _old, value);
+
+    if (!value) {
+      return;
+    }
 
     const url = new URL('https://api.giphy.com/v1/gifs/random');
     url.search = new URLSearchParams({

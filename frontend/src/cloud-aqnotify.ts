@@ -1,21 +1,21 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import './random-gif.js';
 
 @customElement('cloud-aqnotify')
 export class CloudAqnotify extends LitElement {
-  @property({ type: String })
-  aqhi = '';
+  @property({ type: Number })
+  aqhi = 0;
 
   @property({ type: String })
   name = '';
 
   @property({ type: String })
-  tag = 'happy';
+  tag = '';
 
   _interval: any;
 
-  _endpoint = '/current';
+  _endpoint = '/api/current';
 
   static styles = css`
     :host {
@@ -46,14 +46,6 @@ export class CloudAqnotify extends LitElement {
     }
   `;
 
-  constructor() {
-    super();
-    if (window.location.hostname === 'localhost') {
-      this._endpoint =
-        'https://exciting-src-yv0li.cloud.serverless-dev.com/current';
-    }
-  }
-
   connectedCallback() {
     // eslint-disable-next-line wc/guard-super-call
     super.connectedCallback();
@@ -76,7 +68,7 @@ export class CloudAqnotify extends LitElement {
     this.aqhi = json.aqhi;
     this.name = json.nameEn;
 
-    const num = Number.parseFloat(this.aqhi);
+    const num = this.aqhi;
 
     if (num > 7) {
       this.tag = 'sad';

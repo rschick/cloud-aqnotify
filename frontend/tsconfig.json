@@ -14,7 +14,8 @@
     "sourceMap": true,
     "inlineSources": true,
     "rootDir": "./",
-    "incremental": true
+    "incremental": true,
+    "useDefineForClassFields": false
   },
   "include": ["**/*.ts"]
 }

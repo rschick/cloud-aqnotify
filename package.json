@@ -4,20 +4,26 @@
   "description": "Default Serverless Cloud service",
   "main": "index.ts",
   "type": "module",
+  "scripts": {
+    "postinstall": "cd frontend && npm install",
+    "cloud:dev": "cd frontend && npm start",
+    "cloud:build": "cd frontend && npm ci && npm run build"
+  },
   "serverless": {
     "org": "rschick",
     "app": "cloud-aqnotify"
   },
   "dependencies": {
-    "@serverless/cloud": "^2.5.10",
+    "@serverless/cloud": "^2.10.16",
     "aws-sdk": "^2.968.0",
     "delay": "^5.0.0",
     "lit": "^2.0.0-rc.2",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.2.8",
+    "pino": "^8.4.1",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.1",
+    "@types/jest": "^28.1.5",
     "prettier": "^2.4.1"
   }
 }

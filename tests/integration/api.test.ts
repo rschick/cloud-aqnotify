@@ -1,7 +1,9 @@
-import { api } from "@serverless/cloud";
+import { api, data } from "@serverless/cloud";
 
 test("returns current data", async () => {
-  const { body } = await api.get("/current").invoke();
+  // await data.seed("data.json", false);
+  const { body, status } = await api.get("/current").invoke();
+  expect(status).toBe(200);
   expect(body).toEqual(
     expect.objectContaining({
       nameEn: "Squamish",
