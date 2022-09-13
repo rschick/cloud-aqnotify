@@ -72,7 +72,7 @@ export class CloudAqnotify extends LitElement {
 
     if (num > 7) {
       this.tag = 'sad';
-    } else if (num > 5) {
+    } else if (num > 3) {
       this.tag = 'disappointed';
     } else {
       this.tag = 'happy';
@@ -80,6 +80,9 @@ export class CloudAqnotify extends LitElement {
   }
 
   render() {
+    if (this.aqhi === 0) {
+      return html`<main><h2>Loading...</h2></main>`;
+    }
     return html`
       <main>
         <h2>${this.name} AQHI is</h2>
