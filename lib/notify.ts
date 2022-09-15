@@ -1,7 +1,14 @@
 import { params } from "@serverless/cloud";
+import { validate as validateEmail } from "email-validator";
 import SES from "aws-sdk/clients/ses";
 
-export async function sendAqhiNotification(email, data) {
+export async function sendAqhiNotification(data) {
+  const email = params.NOTIFICATION_EMAIL;
+  if (!validateEmail(email)) {
+    console.log("Skipping email notification", data);
+    return;
+  }
+
   console.log(`Sending notification to ${email}`);
 
   const ses = new SES({
@@ -26,7 +33,7 @@ export async function sendAqhiNotification(email, data) {
           Data: `${data.nameEn} is now ${data.aqhi}`,
         },
       },
-      Source: "rschick@bellwoods.ca",
+      Source: "noreply@aq.rschick.com",
     })
     .promise()
     .catch();

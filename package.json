@@ -17,6 +17,7 @@
     "@serverless/cloud": "^2.10.16",
     "aws-sdk": "^2.968.0",
     "delay": "^5.0.0",
+    "email-validator": "^2.0.4",
     "lit": "^2.0.0-rc.2",
     "node-fetch": "^3.2.8",
     "pino": "^8.4.1",

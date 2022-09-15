@@ -51,14 +51,6 @@ api.post("/api/update", async (req, res) => {
   res.status(204).end();
 });
 
-api.post("/api/notify", async (req, res) => {
-  const current = await getCurrent(code);
-
-  await sendAqhiNotification(params.NOTIFICATION_EMAIL, current);
-
-  res.status(204).end();
-});
-
 schedule.every("1 hour", async () => {
   await update(code);
 });

@@ -1,6 +1,7 @@
 import { data, params } from "@serverless/cloud";
 import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
+
 import { sendAqhiNotification } from "./notify";
 
 type AqData = {
@@ -53,8 +54,8 @@ export async function update(code) {
   if (!existing || existing.aqhi !== current.aqhi) {
     await data.set(`region_${code}`, current);
 
-    if (current.aqhi >= 3 && params.NOTIFICATION_EMAIL) {
-      await sendAqhiNotification(params.NOTIFICATION_EMAIL, current);
+    if (current.aqhi >= 3) {
+      await sendAqhiNotification(current);
     }
   }
 }
