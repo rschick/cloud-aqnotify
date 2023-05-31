@@ -1,4 +1,4 @@
-import { params } from "@serverless/cloud";
+import { params } from "@ampt/cloud";
 import { validate as validateEmail } from "email-validator";
 import SES from "aws-sdk/clients/ses";
 

@@ -1,8 +1,7 @@
-import { api, schedule, params } from "@serverless/cloud";
+import { api, schedule, params, data, storage } from "@ampt/cloud";
 import pino from "pino";
 
 import { getCurrent, update } from "./lib/data";
-import { sendAqhiNotification } from "./lib/notify";
 
 // Look up location here: http://www4.nrcan.gc.ca/search-place-names/search
 // See also:

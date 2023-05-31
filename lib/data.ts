@@ -1,4 +1,4 @@
-import { data, params } from "@serverless/cloud";
+import { data } from "@ampt/cloud";
 import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 

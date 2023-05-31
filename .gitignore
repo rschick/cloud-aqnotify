@@ -1,4 +1,5 @@
+.ampt
 .DS_Store
-node_modules/
-out-tsc/
-static/
+node_modules
+out-tsc
+/static
