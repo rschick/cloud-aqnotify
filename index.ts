@@ -1,5 +1,4 @@
-import { api, schedule, params, data, storage } from "@ampt/cloud";
-import pino from "pino";
+import { api, schedule, params } from "@ampt/cloud";
 
 import { getCurrent, update } from "./lib/data";
 
@@ -10,31 +9,6 @@ import { getCurrent, update } from "./lib/data";
 
 // code is the "Key" from the CGNDB result
 const code = params.LOCATION_CGNDB_KEY || "JCVCJ"; // Squamish test
-
-const logger = pino({ level: params.LOG_LEVEL || "trace" });
-
-api.get("/api/health", async (req, res) => {
-  logger.info("hello");
-  logger.info({ _aws: { value: "something" } }, "embedded metrics");
-  console.log("hello");
-  res.json({ status: "ok" });
-});
-
-api.get("/api/error", async (req, res) => {
-  throw new Error("Error!");
-});
-
-api.get("/api/slow", { timeout: 50 }, async (_req, res) => {
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  res.status(200).send("should not reach here");
-});
-
-api.get("/api/await", async (_req, res) => {
-  new Promise((resolve) => setTimeout(resolve, 1000)).then(() => {
-    console.log("done");
-  });
-  res.status(200).type("text").send("OK");
-});
 
 api.get("/api/current", async (req, res) => {
   const data = await getCurrent(code);

@@ -64,25 +64,37 @@ export class CloudAqnotify extends LitElement {
 
   async _update() {
     const response = await fetch(this._endpoint);
-    const json = await response.json();
-    this.aqhi = json.aqhi;
-    this.name = json.nameEn;
 
-    const num = this.aqhi;
+    try {
+      const json = await response.json();
+      this.aqhi = json.aqhi;
+      this.name = json.nameEn;
 
-    if (num > 7) {
-      this.tag = 'sad';
-    } else if (num > 3) {
-      this.tag = 'disappointed';
-    } else {
-      this.tag = 'happy';
+      const num = this.aqhi;
+
+      if (num > 7) {
+        this.tag = 'sad';
+      } else if (num > 3) {
+        this.tag = 'disappointed';
+      } else {
+        this.tag = 'happy';
+      }
+    } catch (err: any) {
+      console.warn('Error loading AQHI data:', err.message);
+      // keep existing value if there is one
+      if (this.aqhi === 0) {
+        this.aqhi = -1;
+      }
     }
   }
 
   render() {
     if (this.aqhi === 0) {
       return html`<main><h2>Loading...</h2></main>`;
+    } else if (this.aqhi === -1) {
+      return html`<main><h2>Error loading AQHI data</h2></main>`;
     }
+
     return html`
       <main>
         <h2>${this.name} AQHI is</h2>

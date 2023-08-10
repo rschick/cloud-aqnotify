@@ -1,2 +1,4 @@
-out-tsc
-.vscode
+/frontend/node_modules
+/frontend/out-tsc
+/.vscode
+/scripts
