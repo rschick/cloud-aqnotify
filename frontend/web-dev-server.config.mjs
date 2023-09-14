@@ -13,7 +13,8 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   ],
   middleware: [
     proxy('/api/', {
-      target: 'http://localhost:9000/',
+      target: process.env.AMPT_URL,
+      changeOrigin: true,
     }),
   ],
 });

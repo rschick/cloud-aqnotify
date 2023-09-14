@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@ampt/cloud": "^0.0.1-beta.8",
-    "@ampt/data": "^0.0.1-beta.16",
-    "@ampt/sdk": "^0.0.1-beta.55",
+    "@ampt/data": "^0.0.1-beta.18",
+    "@ampt/sdk": "^0.0.1-beta.61",
     "@aws-sdk/client-ses": "^3.352.0",
     "email-validator": "^2.0.4",
     "lit": "^2.0.0-rc.2",

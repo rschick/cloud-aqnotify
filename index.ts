@@ -16,7 +16,7 @@ api.get("/api/current", async (req, res) => {
     res.status(404).end();
     return;
   }
-  res.json(data);
+  res.set("cache-control", "max-age=600, must-revalidate").json(data);
 });
 
 api.post("/api/update", async (req, res) => {
